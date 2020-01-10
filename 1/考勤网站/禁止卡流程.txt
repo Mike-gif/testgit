@@ -1,0 +1,92 @@
+1.专人维护废旧卡回收、登记，并通知考勤管理人员
+2.考勤管理员录入废旧卡卡号到考勤系统中，列入“禁止卡”队列（以文本或数据库为载体），标记为“未通知”
+3.考勤管理软件启动“查询”子程序，轮询“禁止卡”队列
+4.“查询”子程序如发现“禁止卡”队列中有标注“未通知”的卡号，必须在空闲时发送“请求注销”命令到读卡器
+5.读卡器收到“请求注销”命令后，将在2秒内进行回复，如果软件收到“已确认”回复，软件将此卡标记为“已通知”
+注意，读卡器收到“请求注销”命令后，并不会立即注销卡片，它会等待卡片出现才能完成注销任务
+
+6.“查询”子程序如发现“禁止卡”队列中标注有“已通知”的卡号，应每天发送至少一两次“销卡询问”命令到读卡器
+7.读卡器收到“销卡询问”命令后，将在2秒内进行回复
+8.当考勤软件收到“已确认”回复时，应在标记“已通知”的卡片中寻找匹配卡号，将其从队列中删除
+9.当考勤软件收到“未确认”回复时，可在第二天再发“销卡询问”命令
+10.当考勤软件未收到任何回复时，继续在空闲时间发出“销卡询问”命令，直至收到回复
+
+
+“请求注销”命令格式：55 55 00 RR 00 0B 57 11 00 00 ID ID ID ID ID ID HH
+“请求注销”命令解释：第4字节RR是读卡器地址
+                      第11-16字节共6个ID是要求注销的卡号000008601002
+                      第17字节HH是校验字节（前面所有字节做异或运算）
+
+
+
+55 55 00 01 00 0B 57 11 00 00 00 00 08 60 60 08 4C
+
+“销卡询问”命令格式：55 55 00 RR 00 0B 57 12 00 00 ID ID ID ID ID ID HH
+“销卡询问”命令解释：第4字节RR是读卡器地址
+                      第11-16字节共6个ID是要询问的卡号
+                      第17字节HH是校验字节（前面所有字节做异或运算）
+
+“已确认”命令格式：55 55 00 RR 00 02 00 HH
+“已确认”命令解释：第4字节RR是读卡器地址
+                    第8字节HH是校验字节（前面所有字节做异或运算）
+
+“未确认”命令格式：55 55 00 RR 00 02 EA HH
+“未确认”命令解释：第4字节RR是读卡器地址
+                    第8字节HH是校验字节（前面所有字节做异或运算）
+exec [dbo].[test1] '000008601001'
+_RecordsetPtr &AdoSql::test(CString id)
+{
+	
+	WaitForSingleObject(hMute2, INFINITE); // 等待互斥对象通知对共享资源进行写入操作
+	 
+		  
+    if(m_pConnection==NULL)//连接对象不存在
+		OnInitADOConn();//重新连接
+	m_pRecordset.CreateInstance(__uuidof(Recordset));//创建记录集对象
+		//执行查询，得到记录集
+		 
+   
+	_CommandPtr cmmd;
+	 _ParameterPtr inParam2=NULL; 
+	  _ParameterPtr outParam1=NULL;   
+        HRESULT hr = cmmd.CreateInstance(__uuidof(Command));
+		 outParam1.CreateInstance(__uuidof(Parameter));
+		 inParam2.CreateInstance(__uuidof(Parameter));
+		 //输入参数
+		inParam2=cmmd->CreateParameter(_bstr_t("@cardid"),adVarChar,adParamInput,50,_bstr_t(id));  
+         cmmd->Parameters->Append(inParam2); 
+     ////输出参数
+     //outParam1=cmmd->CreateParameter(_bstr_t("@name"),adVarChar,adParamOutput,50);  
+     // cmmd->Parameters->Append(outParam1);   
+        
+
+        cmmd->CommandText = _bstr_t("test1");
+        cmmd->ActiveConnection = m_pConnection;
+        cmmd->CommandType = adCmdStoredProc;
+       m_pRecordset= cmmd->Execute(NULL,NULL,adCmdStoredProc);
+       
+     
+	
+
+	ReleaseMutex(hMute2); // 释放互斥对象
+	   
+	return m_pRecordset;//返回记录集
+}
+m_recordset3=adosql3.test(ptr);
+dtemp = W2A(jinzhiid);
+				for(int i=0,j=0;i<jinzhiid.GetLength();i++)
+				{
+				  
+					dtemp[i] -= '0';
+					if(i%2==1)
+					{
+						dtemp[j] = dtemp[i-1]*10 + dtemp[i];
+						j++;
+					}
+					//if(dtem[i]>='A' && <='Z')
+					//	dtemp[i]-=55;
+				}
+				for(int a=10;a<16;a++)
+				{
+				  at[a]=dtemp[a-10];
+				}

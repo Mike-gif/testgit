@@ -1,0 +1,107 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="admin.master.cs" Inherits="admin_admin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <title>考勤管理系统</title>
+<link type="text/css" rel="stylesheet" href="../css/style.css" />
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/menu.js"></script>
+       <style type="text/css"> 
+     
+  h2 { float:left;
+       
+      margin:0;padding:0;
+      padding-right:5px;
+        }
+       
+</style>
+      <asp:ContentPlaceHolder id="_head" runat="server" >
+         
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+    <div>
+        <asp:ContentPlaceHolder id="menu" runat="server">
+        <div class="top"></div>
+<div id="header">
+   
+	<div class="logo" style="text-align:center"> <h2><img src="../upfiles/logo.png"  /></h2>  <asp:Label ID="setkaoqinName" runat="server" ></asp:Label>考勤系统</div>
+	<div class="navigation">
+		<ul>
+		 	<li>欢迎您！</li>
+			<li>管理员</li>
+			<li><a href="admin_password.aspx">修改密码</a></li>
+			<li><a href="../login.aspx">退出</a></li>
+		</ul>
+	</div>
+</div>
+<div id="content">
+	<div class="left_menu">
+				<ul id="nav_dot">
+      <li>
+          <h4 class="M2"><span></span>考勤信息管理</h4>
+          <div class="list-item none">
+           
+             <%-- <a href="CanShuSet.aspx">考勤参数设置</a>--%>
+               <a href="GongZuoRi.aspx">工作日设置</a>
+                <a href="Cardaddress.aspx">设置考勤地址</a>
+              <a href="ELECseekinf.aspx">电子看板</a>
+              
+          </div>
+        </li>
+        <li>
+          <h4 class="M5"><span></span>员工信息管理</h4>
+          <div class="list-item none">
+             <a href="SeekChuQin.aspx">员工考勤信息查询</a> 
+             <%-- <a href="YuanGongInf.aspx">员工基本信息管理</a>  --%>
+              <a href="MagUserShenQing.aspx">员工事项申报管理</a> 
+              <a href="Jinzhicard.aspx">添加禁止卡</a> 
+              <a href="Qingjia.aspx">请假信息查询</a>
+            
+           </div>
+        </li>
+        <li>
+          <h4 class="M6"><span></span>修改信息</h4>
+            
+          <div class="list-item none">
+           <a href='admin_password.aspx'>修改登录密码</a> 
+               <a href="ChangeName.aspx">修改软件名称</a>     
+          </div>
+        </li>
+				
+  </ul>
+		</div>
+		<div class="m-right">
+			<div class="right-nav">
+                <asp:ContentPlaceHolder runat="server" ID="position"> 
+
+                </asp:ContentPlaceHolder>
+					
+			</div>
+            <div class="main" style="width:100%;"> 
+				
+            <asp:ContentPlaceHolder id="mainContent" runat="server" >
+                 
+			
+   </asp:ContentPlaceHolder>
+			</div >
+		</div>
+</div>
+<div class="bottom" >
+              <%--  <h3 style="color:black"> 成都联星微电子股份有限公司 设计产品
+全国服务热线: 400-015-8798 </h3>--%>
+            </div>
+<script>navList(12);</script>
+
+        </asp:ContentPlaceHolder>
+    </div>
+  
+            </div>
+    </form>
+</body>
+</html>

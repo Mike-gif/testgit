@@ -1,0 +1,10 @@
+F:\考勤网站\DBHelper\bin\Debug\DBHelper.dll
+F:\考勤网站\DBHelper\bin\Debug\DBHelper.pdb
+F:\考勤网站\DBHelper\obj\Debug\DBHelper.csprojResolveAssemblyReference.cache
+F:\考勤网站\DBHelper\obj\Debug\DBHelper.dll
+F:\考勤网站\DBHelper\obj\Debug\DBHelper.pdb
+E:\桌面\考勤网站\DBHelper\bin\Debug\DBHelper.dll
+E:\桌面\考勤网站\DBHelper\bin\Debug\DBHelper.pdb
+E:\桌面\考勤网站\DBHelper\obj\Debug\DBHelper.dll
+E:\桌面\考勤网站\DBHelper\obj\Debug\DBHelper.pdb
+E:\桌面\考勤网站\DBHelper\obj\Debug\DBHelper.csprojResolveAssemblyReference.cache
